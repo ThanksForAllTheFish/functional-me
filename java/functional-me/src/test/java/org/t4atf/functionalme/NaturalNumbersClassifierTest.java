@@ -36,10 +36,20 @@ public class NaturalNumbersClassifierTest {
 	}
 
 	@Test
-	public void classify() {
-		assertThat(NaturalNumbersClassifier.classifyWith(6, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.PERFECT));
-		assertThat(NaturalNumbersClassifier.classifyWith(3, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.DEFICIENT));
-		assertThat(NaturalNumbersClassifier.classifyWith(12, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.ABUNDANT));
-		assertThat(NaturalNumbersClassifier.classifyWith(18, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.ABUNDANT));
+	public void nichomanus() {
+		assertThat(classifyWith(6, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.PERFECT));
+		assertThat(classifyWith(3, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.DEFICIENT));
+		assertThat(classifyWith(12, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.ABUNDANT));
+		assertThat(classifyWith(18, NICHOMANUS_CLASSIFICATION), equalTo(NaturalNumbersClassifier.NNC.ABUNDANT));
+	}
+	
+	@Test
+	public void sumOfPrimeFactor() {
+		assertThat(classifyWith(1, SUM_OF_PRIME_FACTORS), equalTo(0));
+		assertThat(classifyWith(2, SUM_OF_PRIME_FACTORS), equalTo(2));
+		assertThat(classifyWith(6, SUM_OF_PRIME_FACTORS), equalTo(5));
+		assertThat(classifyWith(3, SUM_OF_PRIME_FACTORS), equalTo(3));
+		assertThat(classifyWith(12, SUM_OF_PRIME_FACTORS), equalTo(7));
+		assertThat(classifyWith(18, SUM_OF_PRIME_FACTORS), equalTo(8));
 	}
 }
