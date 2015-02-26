@@ -1,6 +1,6 @@
 # Basic functions
 
-[Natural number classification](## Natural number classification)
+[Natural number classification](#natural-number-classification)
 
 ## Natural number classification
 
