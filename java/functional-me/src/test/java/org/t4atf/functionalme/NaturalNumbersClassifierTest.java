@@ -20,6 +20,14 @@ public class NaturalNumbersClassifierTest {
 	}
 	
 	@Test
+	public void primeDivisor() {
+		assertThat(getPrimeDivisorOf(6).collect(Collectors.toSet()), containsInAnyOrder(2, 3));
+		assertThat(getPrimeDivisorOf(3).collect(Collectors.toSet()), containsInAnyOrder(3));
+		assertThat(getPrimeDivisorOf(12).collect(Collectors.toSet()), containsInAnyOrder(2, 3));
+		assertThat(getPrimeDivisorOf(21).collect(Collectors.toSet()), containsInAnyOrder(3, 7));
+	}
+	
+	@Test
 	public void properDivisor() {
 		assertThat(getProperDivisorOf(6).collect(Collectors.toSet()), containsInAnyOrder(1, 2, 3));
 		assertThat(getProperDivisorOf(3).collect(Collectors.toSet()), containsInAnyOrder(1));
@@ -51,5 +59,15 @@ public class NaturalNumbersClassifierTest {
 		assertThat(classifyWith(3, SUM_OF_PRIME_FACTORS), equalTo(3));
 		assertThat(classifyWith(12, SUM_OF_PRIME_FACTORS), equalTo(7));
 		assertThat(classifyWith(18, SUM_OF_PRIME_FACTORS), equalTo(8));
+	}
+	
+	@Test
+	public void isPrime() {
+		assertThat(classifyWith(1, PRIME_CLASSIFICATION), equalTo(false));
+		assertThat(classifyWith(2, PRIME_CLASSIFICATION), equalTo(true));
+		assertThat(classifyWith(6, PRIME_CLASSIFICATION), equalTo(false));
+		assertThat(classifyWith(3, PRIME_CLASSIFICATION), equalTo(true));
+		assertThat(classifyWith(12, PRIME_CLASSIFICATION), equalTo(false));
+		assertThat(classifyWith(18, PRIME_CLASSIFICATION), equalTo(false));
 	}
 }

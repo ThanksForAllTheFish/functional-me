@@ -12,6 +12,10 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class NaturalNumbersClassifier {
+	
+	public static final Function<Integer, Boolean> PRIME_CLASSIFICATION = number -> {
+		return isPrime(number);
+	};
 
 	public static final Function<Integer, NNC> NICHOMANUS_CLASSIFICATION = number -> {
 		final Integer sum = getAliquotSumOf(number).get();
@@ -61,9 +65,22 @@ public class NaturalNumbersClassifier {
 	public static Stream<Integer> getDivisorOf(final int number) {
 		return getBy(number, canDivide(number));
 	}
+	
+	public static Stream<Integer> getPrimeDivisorOf(final int number) {
+		return getBy(number, canDivide(number).and(n -> isPrime(n)));
+	}
 
 	public static Stream<Integer> getProperDivisorOf(final int number) {
 		return getBy(number, canDivide(number).and(isLessThan(number)));
+	}
+
+	public static Optional<Integer> getAliquotSumOf(final int number) {
+		return getProperDivisorOf(number).reduce(Integer::sum);
+	}
+
+	public static <T> T classifyWith(final int number,
+			final Function<Integer, T> classificationFunction) {
+		return classificationFunction.apply(number);
 	}
 
 	private static IntPredicate isLessThan(final int number) {
@@ -74,17 +91,12 @@ public class NaturalNumbersClassifier {
 		return n -> number % n == 0;
 	}
 
+	private static boolean isPrime(int number) {
+		return number > 1 && getDivisorOf(number).count() == 2;
+	}
+
 	private static Stream<Integer> getBy(final int number, final IntPredicate predicate) {
 		return IntStream.rangeClosed(1, number).filter(predicate).boxed();
-	}
-
-	public static Optional<Integer> getAliquotSumOf(final int number) {
-		return getProperDivisorOf(number).reduce(Integer::sum);
-	}
-
-	public static <T> T classifyWith(final int number,
-			final Function<Integer, T> classificationFunction) {
-		return classificationFunction.apply(number);
 	}
 
 }
